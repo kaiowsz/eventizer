@@ -34,6 +34,31 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
     }
 }
 
-export async function deleteUser() {
+export async function deleteUser(clerkId: string) {
+    try {
+        await connectToDatabase();
+        
+        const userToDelete = await User.findOne({ clerkId });
 
+        if(!userToDelete) {
+            throw new Error("User not found.")
+        }
+
+        await Promise.all([
+            Event.updateMany(
+                { _id: { $in: userToDelete.events }},
+                { $pull: { organizer: userToDelete._id }}
+            )
+        ])
+
+
+
+
+
+
+
+    } catch (error) {
+        handleError(error)
+    }
+    
 } 
