@@ -36,9 +36,9 @@ export function formatDateTime(dateString: Date) {
   const formattedTime: string = new Date(dateString).toLocaleDateString("en-US", timeOptions);
 
   return {
-    formattedDateTime,
-    formattedDate,
-    formattedTime
+    dateTime: formattedDateTime,
+    dateOnly: formattedDate,
+    timeOnly: formattedTime
   }
 }
 
