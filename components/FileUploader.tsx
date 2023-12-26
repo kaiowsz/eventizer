@@ -1,3 +1,5 @@
+"use client"
+
 import React, { Dispatch, SetStateAction, useCallback, useState } from "react"
 import type { FileWithPath } from "@uploadthing/react";
 import { useDropzone } from "@uploadthing/react/hooks"
@@ -20,7 +22,7 @@ const FileUploader = ({ imageUrl, setFiles, onFieldChange }: FileUploaderProps) 
    
     const { getRootProps, getInputProps } = useDropzone({
       onDrop,
-      accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
+      accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined
     });
    
     return (

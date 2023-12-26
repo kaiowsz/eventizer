@@ -53,62 +53,60 @@ const EventForm = ({ type, userId, event, eventId }: EventFormProps) => {
     })
 
     async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-        const eventData = values;
         let uploadedImageUrl = values.imageUrl;
-
+        
         if(files.length > 0) {
             const uploadedImages = await startUpload(files);
-
+            
             if(!uploadedImages) {
                 return
             }
 
             uploadedImageUrl = uploadedImages[0].url
+        }
 
-            if(type === "Create") {
-                try {
-                    const newEvent = await createEvent({
-                        event: {...values, imageUrl: uploadedImageUrl},
-                        userId,
-                        path: "/profile"
-                    })
+        if(type === "Create") {
+            try {
+                const newEvent = await createEvent({
+                    event: {...values, imageUrl: uploadedImageUrl},
+                    userId,
+                    path: "/profile"
+                })
 
-                    console.log(newEvent)
-
-                    if(newEvent) {
-                        form.reset();
-                        router.push(`/events/${newEvent._id}`)
-                    }
-
-                } catch (error) {
-                    console.log(error)
+                if(newEvent) {
+                    form.reset();
+                    router.push(`/events/${newEvent._id}`)
                 }
+
+            } catch (error) {
+                console.log(error)
             }
-            if(type === "Update") {
+        }
 
-                if(!eventId) {
-                    router.back()
-                    return;
-                }
+        if(type === "Update") {
 
-                try {
-                    const eventUpdated = await updateEvent({
-                        userId,
-                        event: {...values, imageUrl: uploadedImageUrl, _id: eventId},
-                        path: `/events/${eventId}`
-                    })
+            console.log("OK")
 
-                    if(eventUpdated) {
-                        form.reset();
-                        router.push(`/events/${eventUpdated._id}`)
-                    }
-
-                } catch (error) {
-                    console.log(error)
-                }
+            if(!eventId) {
+                router.back()
+                return;
             }
 
+            try {
+                const eventUpdated = await updateEvent({
+                    userId,
+                    event: {...values, imageUrl: uploadedImageUrl, _id: eventId},
+                    path: `/events/${eventId}`
+                })
 
+                if(eventUpdated) {
+                    form.reset();
+                    router.push(`/events/${eventUpdated._id}`)
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
     
