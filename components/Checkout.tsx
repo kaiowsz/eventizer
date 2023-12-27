@@ -12,7 +12,7 @@ interface CheckoutProps {
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 const Checkout = ({ event, userId }: CheckoutProps) => {
-
+  
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if(query.get("success")) {
