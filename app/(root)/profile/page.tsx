@@ -33,7 +33,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
         </section>
 
         <section className="wrapper my-8">
-            <Collection data={orderedEvents} emptyStateSubtext="No worries - plenty of exciting events to explore!" emptyTitle="No event tickets purchased yet." collectionType="My_Tickets" limit={3} page={ordersPage} urlParamName="ordersPage" totalPages={orders?.totalPages} />
+            <Collection data={orderedEvents} emptyStateSubtext="No worries - plenty of exciting events to explore!" emptyTitle="No event tickets purchased yet." collectionType="My_Tickets" limit={3} page={ordersPage} urlParamName="ordersPage" totalPages={orders?.totalPages || 1} />
         </section>
 
         <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
@@ -46,7 +46,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
         </section>
 
         <section className="wrapper my-8">
-            <Collection data={organizedEvents?.data} emptyStateSubtext="Create some events now!" emptyTitle="No events have been created." collectionType="Events_Organized" limit={6} page={eventsPage} urlParamName="eventsPage" totalPages={organizedEvents?.totalPages} />
+            <Collection data={organizedEvents?.data} emptyStateSubtext="Create some events now!" emptyTitle="No events have been created." collectionType="Events_Organized" limit={6} page={eventsPage} urlParamName="eventsPage" totalPages={organizedEvents?.totalPages || 1} />
         </section>
     </>
     )   
